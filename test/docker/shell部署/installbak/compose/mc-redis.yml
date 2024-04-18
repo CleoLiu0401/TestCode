@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  redis:
+    image: whdata_redis:5.0
+    container_name: mc_redis
+    command: redis-server /redis-master/redis.conf
+    ports:
+    #- 6379:6379
+    - target: 6379
+      published: ${MC_REDIS_PORT}
+      mode: host
+    volumes:
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/redis/conf:/redis-master
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/redis/data:/data
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+    restart: always

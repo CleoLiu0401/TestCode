@@ -1,0 +1,28 @@
+{
+            "order_type": "educourse",
+            "order_address": "14a745504bff4f0c9b3beb8e0447a858",
+            "educlasses": [
+                {
+                    "cart_goods_uuid": "a05b307daa1047988f08957d1ade5950",
+                    "uuid": "34ce69b68f684772ae96b831fb1cd828",
+                    "student_uuid": "9088b593215d4d35949bc0a64fc75146",
+                    "educourse_enable_point": 1,
+                    "original_price": 5000,
+                    "need_post": 1,
+                    "activity": {
+                        "activity_type": "flash_sale",
+                        "uuid": "9715c10d44b441e88fa7e927483e83c5",
+                        "enable_point": 1,
+                        "special_price": 4499,
+                        "discount": -501
+                    }
+                }
+            ],
+            "order_price": 4499,
+            "point": 100,
+            "point_discount": 10,
+            "coupon_type": "cash_coupon",
+            "customer_coupon": "b8847c2a623b4efd9f67ec7bc695083d",
+            "coupon_discount": 50,
+            "need_post": 1
+        }

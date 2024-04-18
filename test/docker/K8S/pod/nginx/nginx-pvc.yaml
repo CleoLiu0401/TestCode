@@ -1,0 +1,46 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nginx-server
+  namespace: nginx
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "nginx-sc"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 30M
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nginx-php-www
+  namespace: nginx
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "nginx-sc"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5M
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nginx-uploadfile
+  namespace: nginx
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "nginx-sc"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 300M
+
+
+

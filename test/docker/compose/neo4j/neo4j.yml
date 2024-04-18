@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  neo4j:
+    image: neo4j:3.5.8
+    container_name: neo4j
+    privileged: true
+    restart: always
+
+    environment:
+      - NEO4J_AUTH=neo4j/neo4j123 # or none
+
+    ports:
+    - "7474:7474"
+    - "7687:7687"
+
+    volumes:
+    - "./data:/var/lib/neo4j/data"
+    - "./logs:/var/lib/neo4j/logs"

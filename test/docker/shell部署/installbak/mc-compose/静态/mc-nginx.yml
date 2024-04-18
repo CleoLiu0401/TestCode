@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  nginx:
+    image: whdata_nginx:1.20.1
+    container_name: mc_nginx
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - target: 21308
+        published: 21308
+        mode: host
+      - "21316-21350:21316-21350"
+    volumes:
+      - /opt/mc_stack/docker_volume/web_server/conf/nginx.conf:/etc/nginx/nginx.conf
+      - /opt/mc_stack/frontends:/opt/mc_stack/frontends
+      - /opt/mc_stack/backends:/opt/mc_stack/backends
+      - /opt/mc_stack/data:/opt/mc_stack/data
+      - /opt/mc_stack/docker_volume/public_static:/opt/mc_stack/public_static
+      - /etc/localtime:/etc/localtime
+    working_dir: /opt/mc_stack/backends
+    links:
+      - php
+    depends_on:
+      - php
+    restart: on-failure

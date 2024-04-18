@@ -1,0 +1,30 @@
+version: '2'
+services:
+  mysql-master:
+    image: mysql:5.7.17
+    restart: always
+    container_name: mysql-master
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_DATABASE=replicas_db"
+    volumes:
+    - "/home/compose/mysql/master/data:/var/lib/mysql"
+    - /home/compose/mysql/master/my.cnf:/etc/mysql/my.cnf
+    links:
+      - mysql-slave
+    ports:
+      - "33065:3306"
+    hostname: mysql-master
+  mysql-slave:
+    image: mysql:5.7.17
+    restart: always
+    container_name: mysql-slave
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_DATABASE=replicas_db"
+    volumes:
+    - "/home/compose/mysql/slave/data:/var/lib/mysql"
+    - /home/compose/mysql/slave/my.cnf:/etc/mysql/my.cnf
+    ports:
+      - "33066:3306"
+    hostname: mysql-slave

@@ -1,0 +1,19 @@
+{
+    "activity_type": "flash_sale",
+    "name": "L1暑期课限时报名",
+    "start_time": 1685541600,
+    "end_time": 1690812000,
+   "educourses": [
+        {
+            "uuid": "7177fde2acaa48c28093661145c405d4",
+            "special_price": 4499.0
+        },
+            {
+            "uuid": "88abb3b58166489e8b6823951eabbf06",
+            "special_price": 4499.0
+        }
+    ],
+    "customer_type": "all",
+    "description": "aaa",
+    "cover": "4549e0f521184898b65e20d95b54f9ee"
+}

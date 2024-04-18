@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  kong-db:
+    image: whdata_kong-postgres:11.7
+    container_name: kong-database
+    environment:
+      - POSTGRES_DB=kong
+      - POSTGRES_USER=kong
+      - POSTGRES_PASSWORD=kong
+    volumes:
+    - /init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+    - target: 5432
+      published: 5432
+      mode: host
+    networks:
+      - kong-net
+    restart: on-failure
+networks:
+  kong-net:
+    driver: bridge

@@ -1,0 +1,36 @@
+{
+    "teaching_mode": "online_live",
+    "class_size": "small_class",
+    "content": "system_course",
+    "name": "inf测试课程",
+    "cover": "4549e0f521184898b65e20d95b54f9ee",
+    "video": "8cd78ee519ec44b0a1392b2a4858c77d",
+    "abstract": "inf课程简介",
+    "outline": [
+                {
+                "id": 1,
+                "title": "inf标题1",
+                "content": "inf内容1"
+                },
+                {
+                "id": 2,
+                "title": "inf标题2",
+                "content": "inf内容2"
+                },
+                {
+                "id": 3,
+                "title": "inf标题3",
+                "content": "inf内容3"
+                }
+                ],
+    "detail": "4549e0f521184898b65e20d95b54f9ee",
+    "buy_tip": "4549e0f521184898b65e20d95b54f9ee",
+    "grade": "g1",
+    "optional_grade1": "g2",
+    "optional_grade2": "g3",
+    "level": "l2",
+    "topic": "humanity",
+    "group": "54d61a7694434583a69decb8eb5be6ad",
+    "season": "summer",
+    "series": "aaaaaa"
+}

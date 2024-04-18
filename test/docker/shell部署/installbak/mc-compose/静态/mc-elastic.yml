@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  elastic:
+    image: whdata_elasticsearch:7.14.1
+    container_name: mc_elasticsearch
+    privileged: true
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "TAKE_FILE_OWNERSHIP=true"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+    - /opt/mc_stack/docker_volume/es/data:/usr/share/elasticsearch/data
+    - /opt/mc_stack/docker_volume/es/logs:/usr/share/elasticsearch/logs
+    - /opt/mc_stack/docker_volume/es/config:/usr/share/elasticsearch/config
+    - /opt/mc_stack/docker_volume/es/plugins:/usr/share/elasticsearch/plugins
+    - /etc/localtime:/etc/localtime
+    ports:
+    #- 9200:9200
+    #- 9300:9300
+    - target: 9200
+      published: 9200
+      mode: host
+    - target: 9300
+      published: 9300
+      mode: host
+    restart: on-failure

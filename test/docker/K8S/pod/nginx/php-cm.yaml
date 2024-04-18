@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: php-config
+    namespace: nginx
+data:
+   php.ini: |
+     extension=uuid.so
+     extension=oci8.so
+     extension=pdo_oci.so
+     extension=pdo_sqlsrv.so
+     extension=sqlsrv.so
+     extension=ldap.so
+     extension=zip.so
+     max_execution_time = 600
+     oci8.privileged_connect = on

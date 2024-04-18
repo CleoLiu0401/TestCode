@@ -1,0 +1,1 @@
+{"capacity": 35, "sale_flag_rule": {"hot": [1, 20], "left": [20, 30], "full": [30, 35]}, "sale_time": 0}

@@ -1,0 +1,41 @@
+apiVersion: "apps/v1beta1"
+kind: StatefulSet
+metadata:
+  name: neo4jdb
+  namespace: neo4j
+  labels:
+    app: neo4jdb #必须匹配 .spec.template.metadata.labels
+spec:
+  serviceName: neo4jsvc #声明它属于哪个Headless Service.
+  replicas: 1 #副本数
+  template:
+    metadata:
+      labels:
+        app: neo4jdb # 必须配置 .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: db
+        image: neo4j
+        env:
+        - name: NEO4J_AUTH
+          value: none 
+        ports:
+          - containerPort: 7474
+          - containerPort: 7687
+        volumeMounts:
+          - name: neo4j-data
+            mountPath: /data
+  volumeClaimTemplates: #PVC模板
+  - metadata:
+      name: neo4j-data
+      annotations:
+        volume.beta.kubernetes.io/storage-class: neo4j-storage
+      #hostPath:
+        #path: /data
+    spec:
+      accessModes: 
+        - ReadWriteOnce
+      storageClassName: neo4j-storage
+      resources:
+        requests:
+          storage: 100Mi

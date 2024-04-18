@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  storage:
+    image: whdata_fastdfs:latest
+    container_name: mc_storage
+    command: sh storage.sh
+    ports:
+    - target: 23002
+      published: ${MC_STORAGE_PORT01}
+      mode: host
+    - target: 9101
+      published: ${MC_STORAGE_PORT02}
+      mode: host
+    volumes:
+    - ${MC_INSTALL_PATH}/mc_stack/fastdfs_data:/data/fast_data/
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/fastdfs/storage/conf/storage.sh:/storage.sh
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/fastdfs/storage/conf/storage.conf:/etc/fdfs/storage.conf
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/fastdfs/storage/conf/nginx.conf:/etc/nginx/conf/nginx.conf
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/fastdfs/storage/conf/mod_fastdfs.conf:/etc/fdfs/mod_fastdfs.conf
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/fastdfs/storage/conf/client.conf:/data/fastdfs/conf/client.conf
+    restart: always

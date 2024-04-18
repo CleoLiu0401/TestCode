@@ -1,0 +1,14 @@
+version: '3'
+services:
+  #tomcat服务名称
+  tomcat:
+    container_name: tomcat
+    image: tomcat:8.5.11
+    restart: always
+    ports:
+      - 80:8080
+    #挂载
+    volumes:
+      - ./logs:/usr/local/tomcat/logs
+      - ./webapps:/usr/local/tomcat/webapps
+

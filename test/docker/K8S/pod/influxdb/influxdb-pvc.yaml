@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: influxdb-pvc
+  namespace: influxdb
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "influxdb-storage"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi

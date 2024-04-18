@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: k8s-pv-kafka01
+  namespace: tools
+  labels:
+    app: kafka
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "mykafka"
+spec:
+  capacity:
+    storage: 500M
+  accessModes:
+  - ReadWriteOnce
+  nfs:
+    server: 192.168.1.162
+    path: "/home/k8s/kafka/pv1"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: k8s-pv-kafka02
+  namespace: tools
+  labels:
+    app: kafka
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "mykafka"
+spec:
+  capacity:
+    storage: 500M
+  accessModes:
+  - ReadWriteOnce
+  nfs:
+    server: 192.168.1.162
+    path: "/home/k8s/kafka/pv2"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: k8s-pv-kafka03
+  namespace: tools
+  labels:
+    app: kafka
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "mykafka"
+spec:
+  capacity:
+    storage: 500M
+  accessModes:
+  - ReadWriteOnce
+  nfs:
+    server: 192.168.1.162
+    path: "/home/k8s/kafka/pv3"

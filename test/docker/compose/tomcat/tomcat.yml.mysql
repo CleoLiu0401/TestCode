@@ -1,0 +1,42 @@
+version: '3'
+services:
+  #tomcat服务名称
+  tomcat:
+    #容器名称
+    container_name: sunrise-tomcat
+    #镜像名称
+    image: docker.io/tomcat:9.0
+    #总是重启后启动
+    restart: always
+    #端口映射
+    ports:
+      - 8085:8080
+    #挂载
+    volumes:
+      - ./logs:/usr/local/tomcat/logs
+      - ./webapps:/usr/local/tomcat/webapps
+    #启动顺序
+    depends_on:
+      - mysql
+  #mysql服务名称
+  mysql:
+    #容器名称
+    container_name: sunrise-mysql
+    #镜像名称
+    image: docker.io/mysql:5.7
+    #自动启动
+    restart: always
+    #端口映射
+    ports:
+      - 3306:3306
+    #环境变量
+    environment:
+      - MYSQL_ROOT_PASSWORD=byph.123
+      - MYSQL_USER=remoteUser
+      - MYSQL_PASS=remoteUser.123
+    #挂载
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/logs:/logs
+      - ./mysql/data:/var/lib/mysql
+

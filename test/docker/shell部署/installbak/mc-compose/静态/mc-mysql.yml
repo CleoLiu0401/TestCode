@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: whdata_mysql:5.7.35
+    container_name: mc_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=MC-stack@whdata123
+      - TZ=Asia/Shanghai
+    volumes:
+      - /opt/mc_stack/docker_volume/mysql/data:/var/lib/mysql
+      - /opt/mc_stack/docker_volume/mysql/conf/my.cnf:/etc/mysql/my.cnf
+      - /opt/mc_stack/docker_volume/mysql/logs:/var/log/mysql
+    ports:
+      - target: 3306
+        published: 3306
+        mode: host
+    hostname: mysql
+    restart: on-failure

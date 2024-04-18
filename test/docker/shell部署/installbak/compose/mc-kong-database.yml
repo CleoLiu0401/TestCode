@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  kong-db:
+    image: whdata_kong-postgres:11.7
+    container_name: kong-database
+    environment:
+      - POSTGRES_DB=${MC_POSTGRES_DB}
+      - POSTGRES_USER=${MC_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${MC_POSTGRES_PASSWORD}
+    volumes:
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/kong-database:/var/lib/postgresql/data
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/data-init/kong-init.sh:/docker-entrypoint-initdb.d/kong-init.sh
+    ports:
+    - target: 5432
+      published: ${MC_KONG_DB_PORT}
+      mode: host
+    networks:
+      - kong-net
+    restart: always
+networks:
+  kong-net:
+    driver: bridge

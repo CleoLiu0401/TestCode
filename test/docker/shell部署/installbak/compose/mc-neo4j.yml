@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  neo4j:
+    image: whdata_neo4j:3.5.4
+    container_name: mc_neo4j
+    privileged: true
+    environment:
+      - NEO4J_PASSWORD=${MC_NEO4J_PASSWORD} # or none
+      #- "dbms.memory.heap.initial_size=2048m"
+      #- "dbms.memory.heap.max_size=8196m"
+    ports:
+    - target: 7474
+      published: ${MC_NEO4J_PORT01}
+      mode: host
+    - target: 7687
+      published: ${MC_NEO4J_PORT02}
+      mode: host
+    volumes:
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/neo4j/data:/var/lib/neo4j/data
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/neo4j/logs:/var/lib/neo4j/logs
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/neo4j/plugins:/var/lib/neo4j/plugins
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/neo4j/conf/neo4j.conf:/var/lib/neo4j/conf/neo4j.conf
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/neo4j/import:/var/lib/neo4j/import
+    - ${MC_INSTALL_PATH}/mc_stack/docker_volume/neo4j/init/all.sh:/var/lib/all.sh
+    restart: always

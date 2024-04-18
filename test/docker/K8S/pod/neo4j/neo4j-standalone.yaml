@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: neo4jdb
+  labels:
+    app: neo4jdb
+spec:
+  containers:
+  - name: db
+    image: neo4j
+    env:
+    - name: NEO4J_AUTH
+      value: none 
+    ports:
+      - containerPort: 7474
+      - containerPort: 7687

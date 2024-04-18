@@ -1,0 +1,377 @@
+version: '3.3'
+
+services:
+  kong-db:
+    image: whdata_kong-postgres:11.7
+    container_name: kong-database
+    environment:
+      - POSTGRES_DB=kong
+      - POSTGRES_USER=kong
+      - POSTGRES_PASSWORD=kong
+    volumes:
+    - /init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+    - target: 5432
+      published: 5432
+      mode: host
+    networks:
+      - kong-net
+    deploy:
+      replicas: 1
+      restart_policy:
+         condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdata132'
+
+  kong-migra:
+    image: whdata_kong:2.6.0
+    container_name: mc_kong_migra
+    command: "kong migrations bootstrap"
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+    networks:
+      - kong-net
+    links:
+    - kong-db
+    depends_on:
+    - kong-db
+    deploy:
+      replicas: 1
+      restart_policy:
+         condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdata132'
+
+  kong:  
+    image: kong:2.6.0
+    container_name: kong
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+    ports:
+    - target: 8000
+      published: 21315
+      mode: host
+    - target: 8433
+      published: 433
+      mode: host
+    - target: 8001
+      published: 8001
+      mode: host
+    - target: 8444
+      published: 8444
+      mode: host
+    networks:
+      - kong-net
+    depends_on:
+    - kong-db
+    - kong-migra
+    deploy:
+      replicas: 1
+      restart_policy:
+         condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdata132'
+
+  kong-inside-migra:
+    image: kong:2.6.0
+    container_name: mc_konginside_migra
+    command: "kong migrations bootstrap"
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_DATABASE=kong_inside
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+    networks:
+      - kong-net
+    links:
+    - kong-db
+    depends_on:
+    - kong-db
+    deploy:
+      replicas: 1
+      restart_policy:
+         condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdata132'
+
+  kong-inside:
+    image: whdata_kong:2.6.0
+    container_name: kong_inside
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_PASSWORD=kong
+      - KONG_PG_DATABASE=kong_inside
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8002, 0.0.0.0:8444 ssl
+    ports:
+    - target: 8000
+      published: 22315
+      mode: host
+    - target: 8002
+      published: 8002
+      mode: host
+    networks:
+      - kong-net
+    depends_on:
+    - kong-db
+    - kong-inside-migra
+    deploy:
+      replicas: 1
+      restart_policy:
+         condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdata132'
+
+  mysql:
+    image: whdata_mysql:5.7.35
+    container_name: mc_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=MC-stack@whdata123
+      - TZ=Asia/Shanghai
+    volumes:
+      - /opt/mc_stack/docker_volume/mysql/data:/var/lib/mysql
+      - /opt/mc_stack/docker_volume/mysql/conf/my.cnf:/etc/mysql/my.cnf
+      - /opt/mc_stack/docker_volume/mysql/logs:/var/log/mysql
+    ports:
+      - target: 3306
+        published: 3306
+        mode: host
+    hostname: mysql
+    deploy:
+      replicas: 1
+      restart_policy:
+         condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdata132'
+
+  elastic:
+    image: whdata_elasticsearch:7.14.1
+    container_name: mc_elasticsearch
+    privileged: true
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "TAKE_FILE_OWNERSHIP=true"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+    - /opt/mc_stack/docker_volume/es/data:/usr/share/elasticsearch/data
+    - /opt/mc_stack/docker_volume/es/logs:/usr/share/elasticsearch/logs
+    - /opt/mc_stack/docker_volume/es/config:/usr/share/elasticsearch/config
+    - /opt/mc_stack/docker_volume/es/plugins:/usr/share/elasticsearch/plugins
+    - /etc/localtime:/etc/localtime
+    ports:
+    #- 9200:9200
+    #- 9300:9300
+    - target: 9200
+      published: 9200
+      mode: host
+    - target: 9300
+      published: 9300
+      mode: host
+    #networks:
+      #- es
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdtest02'
+      
+
+  neo4j:
+    image: whdata_neo4j:3.5.4
+    container_name: mc_neo4j
+    privileged: true
+    environment:
+      - NEO4J_AUTH=neo4j/whdata # or none
+      #- "dbms.memory.heap.initial_size=2048m"
+      #- "dbms.memory.heap.max_size=8196m"
+    ports:
+    #- "7474:7474"
+    #- "7687:7687"
+    - target: 7474
+      published: 7474
+      mode: host
+    - target: 7687
+      published: 7687
+      mode: host
+    volumes:
+    - /opt/mc_stack/docker_volume/neo4j/data:/var/lib/neo4j/data
+    - /opt/mc_stack/docker_volume/neo4j/logs:/var/lib/neo4j/logs
+    - /opt/mc_stack/docker_volume/neo4j/plugins:/var/lib/neo4j/plugins
+    - /opt/mc_stack/docker_volume/neo4j/conf/neo4j.conf:/var/lib/neo4j/conf/neo4j.conf
+    - /opt/mc_stack/docker_volume/neo4j/import:/var/lib/neo4j/import
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdtest03'
+
+  redis:
+    image: redis:5.0.4
+    container_name: mc_redis
+    command: redis-server /redis-master/redis.conf
+    ports:
+    #- 6379:6379
+    - target: 6379
+      published: 6379
+      mode: host
+    volumes:
+    - /opt/mc_stack/docker_volume/redis/conf:/redis-master
+    - /opt/mc_stack/docker_volume/redis/data:/data
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+    #networks:
+      #- dbs
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdtest02'
+
+  tracker:
+    image: whdata_fastdfs:latest
+    container_name: mc_tracker
+    command: sh tracker.sh
+    ports:
+    - target: 22122
+      published: 22122
+      mode: host
+    volumes:
+    - /opt/mc_stack/fastdfs_data:/data/fast_data/
+    - /opt/mc_stack/docker_volume/fastdfs/tracker/conf/tracker.conf:/etc/fdfs/tracker.conf
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdtest02'
+
+  storage:
+    image: whdata_fastdfs:latest
+    container_name: mc_storage
+    command: sh storage.sh
+    ports:
+    - target: 23002
+      published: 23002
+      mode: host
+    - target: 9101
+      published: 9101
+      mode: host
+    volumes:
+    - /opt/mc_stack/fastdfs_data:/data/fast_data/
+    - /opt/mc_stack/docker_volume/fastdfs/storage/conf/storage.sh:/storage.sh
+    - /opt/mc_stack/docker_volume/fastdfs/storage/conf/storage.conf:/etc/fdfs/storage.conf
+    - /opt/mc_stack/docker_volume/fastdfs/storage/conf/nginx.conf:/etc/nginx/conf/nginx.conf
+    - /opt/mc_stack/docker_volume/fastdfs/storage/conf/mod_fastdfs.conf:/etc/fdfs/mod_fastdfs.conf
+    - /opt/mc_stack/docker_volume/fastdfs/storage/conf/client.conf:/data/fastdfs/conf/client.conf
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdtest02'
+
+  nginx:
+    image: whdata_nginx:1.20.1
+    container_name: mc_nginx
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - target: 21308
+        published: 21308
+        mode: host
+      - "21316-21350:21316-21350"
+    volumes:
+      - /opt/mc_stack/docker_volume/web_server/conf/nginx.conf:/etc/nginx/nginx.conf
+      - /opt/mc_stack/frontends:/opt/mc_stack/frontends
+      - /opt/mc_stack/backends:/opt/mc_stack/backends
+      - /opt/mc_stack/data:/opt/mc_stack/data
+      - /opt/mc_stack/docker_volume/public_static:/opt/mc_stack/public_static
+      - /etc/localtime:/etc/localtime
+    working_dir: /opt/mc_stack/backends
+    links:
+      - php
+    depends_on:
+      - php
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdtest01'
+
+  php:
+    image: whdata_php:7.4
+    container_name: mc_php
+    privileged: true
+    command: php-fpm -R
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - target: 8082
+        published: 8082
+        mode: host
+      - target: 9000
+        published: 9000
+        mode: host
+      - target: 9999
+        published: 9999
+        mode: host
+    volumes:
+      - /opt/mc_stack/docker_volume/web_server/conf/php.ini:/usr/local/etc/php/php.ini
+      - /opt/mc_stack/docker_volume/web_server/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf 
+      - /opt/mc_stack/backends:/opt/mc_stack/backends
+      - /opt/mc_stack/data:/opt/mc_stack/data
+      - /opt/mc_stack/docker_volume/fastdfs/storage/conf/client.conf:/etc/fdfs/client.conf
+      - /opt/mc_stack/docker_volume/mc_job/config:/opt/mc_job/config
+      - /opt/mc_stack/MACHINECODE:/opt/mc_stack/MACHINECODE
+      - /etc/localtime:/etc/localtime
+    working_dir: /opt/mc_stack/backends
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+         - 'node.hostname==whdtest01'
+networks:
+  kong-net:

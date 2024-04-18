@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  nginx:
+    image: cleoliu/whdata_nphp:4.3
+    restart: always
+    container_name: nphp
+    command: 
+      - sh
+      - -c
+      - |
+        source /etc/profile
+        sleep 5
+        /usr/local/php7.4/sbin/php-fpm -R
+        nohup /usr/local/nginx/sbin/nginx > /dev/null 2>&1 &
+        tail -f /dev/null
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 7080:7080
+      - 7089:7089
+      - 8443:8443
+      - 9000:9000
+    volumes:
+      - /home/compose/nginx/conf/nginx.conf:/usr/local/nginx/conf/nginx.conf
+      - /home/compose/nginx/www/html:/usr/local/nginx/html
+      - /home/compose/nginx/php/www.conf:/usr/local/php7.4/etc/php-fpm.d/www.conf
+      - /home/compose/nginx/php/php.ini:/usr/local/php7.4/lib/php.ini
+      - /home/compose/nginx/uploadfile:/opt/uploadfile
+      - /etc/localtime:/etc/localtime

@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  redis:
+    image: redis:5.0.4
+    container_name: mc_redis
+    command: redis-server /redis-master/redis.conf
+    ports:
+    #- 6379:6379
+    - target: 6379
+      published: 6379
+      mode: host
+    volumes:
+    - /opt/mc_stack/docker_volume/redis/conf:/redis-master
+    - /opt/mc_stack/docker_volume/redis/data:/data
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+    restart: on-failure

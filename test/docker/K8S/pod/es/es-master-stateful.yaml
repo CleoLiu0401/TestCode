@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: es-master
+  namespace: elastic
+  labels:
+    component: elasticsearch
+    role: master
+spec:
+  selector:
+    matchLabels:
+      component: elasticsearch
+      role: master
+  serviceName: elasticsearch-master
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        component: elasticsearch
+        role: master
+    spec:
+      initContainers:
+      - name: init-sysctl
+        image: busybox:1.27.2
+        command:
+        - sysctl
+        - -w
+        - vm.max_map_count=262144
+        securityContext:
+          privileged: true
+      containers:
+      - name: es-master
+        image: cleoliu/es:7.4.2
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: node.name
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: cluster.name
+          value: "es_cluster"
+        - name: node.master
+          value: "true"
+        - name: node.data
+          value: "false"
+        - name: discovery.type
+          value: "zen"
+        - name: discovery.seed_hosts 
+          value: "elasticsearch-discovery" 
+        - name: cluster.initial_master_nodes 
+          value: "es-master-0,es-master-1,es-master-2" 
+        - name: node.ingest
+          value: "false"
+        - name: ES_JAVA_OPTS
+          value: "-Xms512m -Xmx512m"        
+        - name: PROCESSORS
+          valueFrom:
+            resourceFieldRef:
+              resource: limits.cpu
+        resources:
+          requests:
+            cpu: 0.25
+          limits:
+            cpu: 1
+        ports:
+        - containerPort: 9300
+          name: transport
+        livenessProbe:
+          tcpSocket:
+            port: transport
+          initialDelaySeconds: 20
+          periodSeconds: 10
+        volumeMounts:
+        - name: es-data
+          mountPath: /usr/share/elasticsearch/data
+  volumeClaimTemplates:
+  - metadata:
+      name: es-data
+      #annotations:
+        #volume.beta.kubernetes.io/storage-class: es-data-db
+      hostPath:
+        path: /data
+    spec:
+      #storageClassName: es-data-db
+      accessModes: [ ReadWriteOnce ]
+      resources:
+        requests:
+          storage: 2Gi

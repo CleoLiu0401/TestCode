@@ -1,0 +1,21 @@
+{
+  "baseUrl": "http://1.1.1.1:21315/",
+  "storageUrl": "http://1.1.1.1:21317/",
+  "hasf": {
+        "origin": "http://dev.xj.hsip.gov.cn",
+        "firstMenuId": "itsm_dashboard",
+        "menuId": "c_order"
+    },
+  "specialConfig": {
+     "orderSearchOrganizationCN": "统筹区"
+    },
+  "sc": false,
+  "repeatDelay": 100,
+  "timeFrequency": {
+    "low": 60000,
+    "middle": 30000,
+    "high": 10000,
+    "shigh": 5000,
+    "ehigh": 3000
+  }
+}

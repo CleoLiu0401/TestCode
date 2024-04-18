@@ -1,0 +1,19 @@
+{
+    "name": "班级-33",
+    "educourse": "5b9c3db7a9b347b1aceaf99ad4089bbb",
+    "start_date": 1688133600,
+    "end_date": 1701349200,
+    "capacity": 35,
+    "sale_flag_rule": {
+        "hot": [1, 20],
+        "left": [20, 30],
+        "full": [30, 35]
+    },
+    "adviser": "60042bf512f349be9a69075b196daaf5",
+    "optional_adviser": "6fb47cb3446e446da46b760648dd831a",
+    "supervisor": "3999c0dcf43241758bd18db13da3ac9e",
+    "lecturer": "cb603f7c10284ff093876e1bd7b2c7f8",
+    "assistant": "5c2a684a55704c40ac0a1a44490e7dfb",
+    "optional_assistant": "cebfe3968cfe4a93bab0ccaa556fafb9",
+    "sale_time": 0
+}

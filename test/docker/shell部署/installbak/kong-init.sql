@@ -1,0 +1,2 @@
+CREATE DATABASE kong_inside;
+GRANT ALL PRIVILEGES ON DATABASE kong_inside TO kong;

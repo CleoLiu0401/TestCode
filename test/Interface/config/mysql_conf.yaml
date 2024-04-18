@@ -1,0 +1,7 @@
+#后台管理系统配置
+
+host: 47.92.222.27
+port: 3306
+user: root
+password: shanshui@65
+database: ss65_ims

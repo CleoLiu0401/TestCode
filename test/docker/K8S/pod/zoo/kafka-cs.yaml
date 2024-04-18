@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-cs
+  namespace: tools
+  labels:
+    app: kafka
+spec:
+  selector:
+    app: kafka
+  type: NodePort
+  ports:
+  - name: client
+    port: 9092
+  #  nodePort: 19092

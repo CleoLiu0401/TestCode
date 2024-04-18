@@ -1,0 +1,52 @@
+version: '3.3'
+
+services:
+  kong-migra:
+    image: whdata_kong:2.6.0
+    container_name: mc_kong_migra
+    command: "kong migrations bootstrap"
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+    networks:
+      - kong-net
+    links:
+    - kong-db
+    depends_on:
+    - kong-db
+    restart: on-failure
+
+  kong:  
+    image: kong:2.6.0
+    container_name: kong
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+    ports:
+    - target: 8000
+      published: 21315
+      mode: host
+    - target: 8433
+      published: 433
+      mode: host
+    - target: 8001
+      published: 8001
+      mode: host
+    - target: 8444
+      published: 8444
+      mode: host
+    networks:
+      - kong-net
+    depends_on:
+    - kong-db
+    - kong-migra
+    restart: on-failure

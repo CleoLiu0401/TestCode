@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: neo4j-pvc
+  namespace: neo4j
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "neo4j-storage"
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 200Mi

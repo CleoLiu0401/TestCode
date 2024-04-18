@@ -1,0 +1,52 @@
+version: '3.3'
+
+services:
+  kong-migra:
+    image: whdata_kong:2.6.0
+    container_name: mc_kong_migra
+    command: "kong migrations bootstrap"
+    environment:
+     - KONG_DATABASE=${MC_KONG_DATABASE}
+     - KONG_PG_HOST=${MC_KONG_PG_HOST}
+     - KONG_PG_PASSWORD=${MC_KONG_PG_PASSWORD}
+     - KONG_CASSANDRA_CONTACT_POINTS=${MC_KONG_CASSANDRA_CONTACT_POINTS}
+    networks:
+      - kong-net
+    links:
+    - kong-db
+    depends_on:
+    - kong-db
+    restart: on-failure
+
+  kong:  
+    image: whdata_kong:2.6.0
+    container_name: kong
+    environment:
+      - KONG_DATABASE=${MC_KONG_DATABASE}
+      - KONG_PG_HOST=${MC_KONG_PG_HOST}
+      - KONG_PG_PASSWORD=${MC_KONG_PG_PASSWORD}
+      - KONG_CASSANDRA_CONTACT_POINTS=${MC_KONG_CASSANDRA_CONTACT_POINTS}
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+    ports:
+    - target: 8000
+      published: ${MC_KONG_PORT01}
+      mode: host
+    - target: 8433
+      published: ${MC_KONG_PORT02}
+      mode: host
+    - target: 8001
+      published: ${MC_KONG_PORT03}
+      mode: host
+    - target: 8444
+      published: ${MC_KONG_PORT04}
+      mode: host
+    networks:
+      - kong-net
+    depends_on:
+    - kong-db
+    - kong-migra
+    restart: always

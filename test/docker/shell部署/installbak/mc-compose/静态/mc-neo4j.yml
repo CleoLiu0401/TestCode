@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  neo4j:
+    image: whdata_neo4j:3.5.4
+    container_name: mc_neo4j
+    privileged: true
+    environment:
+      - NEO4J_AUTH=neo4j/whdata # or none
+      #- "dbms.memory.heap.initial_size=2048m"
+      #- "dbms.memory.heap.max_size=8196m"
+    ports:
+    - target: 7474
+      published: 7474
+      mode: host
+    - target: 7687
+      published: 7687
+      mode: host
+    volumes:
+    - /opt/mc_stack/docker_volume/neo4j/data:/var/lib/neo4j/data
+    - /opt/mc_stack/docker_volume/neo4j/logs:/var/lib/neo4j/logs
+    - /opt/mc_stack/docker_volume/neo4j/plugins:/var/lib/neo4j/plugins
+    - /opt/mc_stack/docker_volume/neo4j/conf/neo4j.conf:/var/lib/neo4j/conf/neo4j.conf
+    - /opt/mc_stack/docker_volume/neo4j/import:/var/lib/neo4j/import
+    restart: on-failure

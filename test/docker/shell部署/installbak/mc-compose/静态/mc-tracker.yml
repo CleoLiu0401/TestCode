@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  tracker:
+    image: whdata_fastdfs:latest
+    container_name: mc_tracker
+    command: sh tracker.sh
+    ports:
+    - target: 22122
+      published: 22122
+      mode: host
+    volumes:
+    - /opt/mc_stack/fastdfs_data:/data/fast_data/
+    - /opt/mc_stack/docker_volume/fastdfs/tracker/conf/tracker.conf:/etc/fdfs/tracker.conf
+    restart: on-failure

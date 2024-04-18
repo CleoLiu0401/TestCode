@@ -1,0 +1,77 @@
+version: "3"
+services:
+  es-master:
+    image: cleoliu/es:7.4.2
+    container_name: es-master
+    environment:
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - /home/compose/es/master/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /home/compose/es/master/data:/usr/share/elasticsearch/data
+      - /home/compose/es/master/log:/usr/share/elasticsearch/log
+      - /etc/localtime:/etc/localtime
+    networks:
+      - net-es
+  es-node1:
+    image: cleoliu/es:7.4.2
+    container_name: es-node1
+    environment:
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "9201:9200"
+      - "9301:9300"
+    volumes:
+      - /home/compose/es/node1/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /home/compose/es/node1/data:/usr/share/elasticsearch/data
+      - /home/compose/es/node1/log:/usr/share/elasticsearch/log
+      - /etc/localtime:/etc/localtime
+    networks:
+      - net-es
+  es-node2:
+    image: cleoliu/es:7.4.2
+    container_name: es-node2
+    environment:
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "9202:9200"
+      - "9302:9300"
+    volumes:
+      - /home/compose/es/node2/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /home/compose/es/node2/data:/usr/share/elasticsearch/data
+      - /home/compose/es/node2/log:/usr/share/elasticsearch/log
+      - /etc/localtime:/etc/localtime
+    networks:
+      - net-es
+  es-head:
+    image: mobz/elasticsearch-head:5
+    container_name: es-head
+    restart: always
+    ports:
+      - 9100:9100
+networks:
+  net-es:
+    driver: bridge

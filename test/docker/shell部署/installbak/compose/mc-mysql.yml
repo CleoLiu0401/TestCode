@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: whdata_mysql:5.7.35
+    container_name: mc_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MC_MYSQL_PASSWORD}
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/mysql/data:/var/lib/mysql
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/mysql/conf/my.cnf:/etc/mysql/my.cnf
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/mysql/logs:/var/log/mysql
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/data-init/mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql
+    ports:
+      - target: 3306
+        published: ${MC_MYSQL_PORT}
+        mode: host
+    hostname: ${MC_MYSQL_HOST}
+    restart: always

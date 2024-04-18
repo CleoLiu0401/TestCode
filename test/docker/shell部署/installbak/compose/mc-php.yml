@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  php:
+    image: whdata_php:7.4
+    container_name: mc_php
+    privileged: true
+    command: php-fpm -R
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - target: 8082
+        published: ${MC_PHP_PORT01}
+        mode: host
+      - target: 9000
+        published: ${MC_PHP_PORT02}
+        mode: host
+      - target: 9999
+        published: ${MC_PHP_PORT03}
+        mode: host
+    volumes:
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/web_server/conf/php.ini:/usr/local/etc/php/php.ini
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/web_server/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf 
+      - ${MC_INSTALL_PATH}/mc_stack/backends:/opt/mc_stack/backends
+      - ${MC_INSTALL_PATH}/mc_stack/data:/opt/mc_stack/data
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/fastdfs/storage/conf/client.conf:/etc/fdfs/client.conf
+      - ${MC_INSTALL_PATH}/mc_stack/docker_volume/mc_job/config:/opt/mc_job/config
+      - ${MC_INSTALL_PATH}/mc_stack/MACHINECODE:/opt/mc_stack/MACHINECODE
+      - /etc/localtime:/etc/localtime
+    working_dir: ${MC_INSTALL_PATH}/mc_stack/backends
+    restart: on-failure

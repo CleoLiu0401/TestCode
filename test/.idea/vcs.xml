@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/docker/shell部署/docker_volume" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/docker/shell部署/mc_install" vcs="Git" />
+  </component>
+</project>
