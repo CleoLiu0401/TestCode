@@ -5,31 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da6e1ff6-66a7-4f94-9762-5f7d09036a9b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/extra_main.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/extra_main.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/extra_single_word.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/extra_single_word.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/extra_single_word_full.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/extra_single_word_full.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/extra_stopword.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/extra_stopword.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/main.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/main.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/preposition.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/preposition.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/quantifier.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/quantifier.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/stopword.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/stopword.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/suffix.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/suffix.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/surname.dic" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/es/plugins/ik-7.14.1/config/surname.dic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/docker_volume/mc_job/config/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/docker_volume/mc_job/config/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-elastic.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-elastic.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-job-admin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-job-admin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-kong-database.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-kong-database.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-kong.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-kong.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-kong_inside.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-kong_inside.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-mysql.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-mysql.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-neo4j.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-neo4j.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-nginx.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-nginx.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-php.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-php.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-redis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-redis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-storage.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-storage.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-tracker.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/compose/mc-tracker.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/docker_run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/docker_run.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/shell部署/mc_install/mc_install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/shell部署/mc_install/mc_install.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interface/utils/query_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface/utils/query_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interface/utils/read_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface/utils/read_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +23,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/docker/shell部署/docker_volume" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -57,15 +36,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/cleo.l/PycharmProjects/shanshui/Interface/datas",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "vcs.Git"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/cleo.l/PycharmProjects/shanshui/Interface/datas&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="test" is-module-sdk="true">
@@ -90,7 +69,7 @@
       <recent name="$PROJECT_DIR$/../shanshui/WebUI" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_add_activity.TestCase">
+  <component name="RunManager" selected="Python.tt">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -112,19 +91,19 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="shanshui" />
+    <configuration name="tt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="test" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../shanshui/Interface/cases" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../shanshui/Interface/cases/test1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tt.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -199,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.tt" />
         <item itemvalue="Python tests.pytest for test_add_activity.TestCase" />
         <item itemvalue="Python tests.pytest for test_add_activity.TestCase.test_add_class" />
         <item itemvalue="Python tests.pytest for test_order.TestOrder.test_order" />
         <item itemvalue="Python tests.pytest for test_order.TestOrder" />
-        <item itemvalue="Python.test1" />
       </list>
     </recent_temporary>
   </component>
